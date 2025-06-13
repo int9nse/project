@@ -1,9 +1,15 @@
-// backend/src/models/Lesson.js
+// src/models/Lesson.js
 
 import mongoose from 'mongoose';
 
 const lessonSchema = new mongoose.Schema({
   title: {
+    type: String,
+    required: true,
+  },
+
+  // Содержимое урока (основной текст)
+  content: {
     type: String,
     required: true,
   },
