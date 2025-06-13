@@ -1,4 +1,4 @@
-// src/models/Lesson.js
+// backend/src/models/Lesson.js
 
 import mongoose from 'mongoose';
 
@@ -8,7 +8,7 @@ const lessonSchema = new mongoose.Schema({
     required: true,
   },
 
-  // Содержимое урока (основной текст)
+  // Основной текст урока
   content: {
     type: String,
     required: true,
