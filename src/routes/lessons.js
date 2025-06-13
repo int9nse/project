@@ -1,4 +1,4 @@
-// File: backend/src/routes/lessons.js
+// backend/src/routes/lessons.js
 
 import express from 'express';
 import { Lesson } from '../models/Lesson.js';
@@ -8,13 +8,14 @@ const router = express.Router();
 
 /**
  * GET /api/lessons
- * Возвращает список всех уроков, отсортированных по полю order
+ * Возвращает список всех уроков, отсортированных по полю order,
+ * теперь с полями _id, title, content и order.
  */
 router.get('/', auth(), async (req, res) => {
   try {
     const lessons = await Lesson.find()
       .sort({ order: 1 })
-      .select('_id title order');  // отправляем только нужные поля для боковой панели
+      .select('_id title content order');  
     return res.json(lessons);
   } catch (err) {
     console.error('GET /api/lessons error:', err);
@@ -24,7 +25,7 @@ router.get('/', auth(), async (req, res) => {
 
 /**
  * POST /api/lessons
- * Создаёт новый урок
+ * Создаёт новый урок (admin only)
  */
 router.post('/', auth('admin'), async (req, res) => {
   try {
@@ -50,7 +51,7 @@ router.post('/', auth('admin'), async (req, res) => {
 
 /**
  * PUT /api/lessons/:id
- * Редактирует урок
+ * Редактирует урок (admin only)
  */
 router.put('/:id', auth('admin'), async (req, res) => {
   try {
@@ -80,7 +81,7 @@ router.put('/:id', auth('admin'), async (req, res) => {
 
 /**
  * DELETE /api/lessons/:id
- * Удаляет урок
+ * Удаляет урок (admin only)
  */
 router.delete('/:id', auth('admin'), async (req, res) => {
   try {
